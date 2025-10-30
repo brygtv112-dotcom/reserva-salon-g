@@ -5,194 +5,198 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* ====== FONDO ====== */
-html, body { height: 100%; }
+html, body { 
+    height: 100%; 
+    /* Agregado para prevenir el scroll horizontal innecesario */
+    overflow-x: hidden; 
+}
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  display: flex;
-  flex-direction: column;
-  color: #333;
-  background-image: url("salon g.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  position: relative;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    background-image: url("salon g.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
 }
 
 /* Sombra oscura sobre el fondo */
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  z-index: -1;
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: -1;
 }
 
 /* ====== HEADER ====== */
 header {
-  text-align: center;
-  padding: 40px 20px 20px;
-  color: #fff;
+    text-align: center;
+    padding: 40px 20px 20px;
+    color: #fff;
 }
 
 header .logo {
-  width: 240px;
-  height: auto;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.25);
-  transition: 0.3s ease;
+    width: 240px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    transition: 0.3s ease;
 }
 
 header .logo:hover {
-  transform: scale(1.05);
+    transform: scale(1.05);
 }
 
 header h1 {
-  font-size: 2.8rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 5px;
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
 }
 
 .subtitulo {
-  font-size: 1.1rem;
-  opacity: 0.9;
+    font-size: 1.1rem;
+    opacity: 0.9;
 }
 
 /* ====== FORMULARIO ====== */
 main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
 }
 
 .contenedor-formulario {
-  width: 100%;
-  max-width: 600px;
-  background: rgba(255,255,255,0.75);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.35);
 }
 
 .contenedor-formulario h2 {
-  text-align: center;
-  margin-bottom: 18px;
-  font-size: 1.8rem;
-  color: #444;
+    text-align: center;
+    margin-bottom: 18px;
+    font-size: 1.8rem;
+    color: #444;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .campo {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 label {
-  font-weight: 600;
-  color: #444;
+    font-weight: 600;
+    color: #444;
 }
 
 /* Aplicar estilos también al select */
 input, select { 
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  outline: none;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
 }
 
 input:focus, select:focus {
-  border-color: #e5b0c1;
-  box-shadow: 0 0 6px rgba(229,176,193,0.6);
+    border-color: #e5b0c1;
+    box-shadow: 0 0 6px rgba(229,176,193,0.6);
 }
 
 /* Botón */
 button {
-  background: linear-gradient(135deg, #e5b0c1, #b49bff);
-  color: #fff;
-  font-size: 1.1rem;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+    background: linear-gradient(135deg, #e5b0c1, #b49bff);
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
 }
 
 button:hover {
-  filter: brightness(1.1);
-  transform: translateY(-2px);
+    filter: brightness(1.1);
+    transform: translateY(-2px);
 }
 
 /* ====== SECCIONES (PRODUCTOS, SERVICIOS, HORARIOS, UBICACIÓN) ====== */
 #productos, #servicios, #horarios, #ubicacion {
-  background-color: rgba(255, 255, 255, 0.75);
-  text-align: center;
-  padding: 40px 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-  margin: 40px auto; /* Centrar secciones */
-  max-width: 600px;
-  width: 90%;
-  backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.75);
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    margin: 40px auto; /* Centrar secciones */
+    max-width: 600px;
+    width: 90%;
+    backdrop-filter: blur(8px);
 }
 
 #productos h2, #servicios h2, #horarios h2, #ubicacion h2 {
-  font-size: 2rem;
-  margin-bottom: 18px;
-  color: #333;
+    font-size: 2rem;
+    margin-bottom: 18px;
+    color: #333;
 }
 
 #productos ul, #servicios ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 #productos ul li, #servicios ul li {
-  font-size: 1.2rem;
-  margin: 12px 0;
-  color: #444;
+    font-size: 1.2rem;
+    margin: 12px 0;
+    color: #444;
 }
 
 #horarios p, #ubicacion p {
-  font-size: 1.2rem;
-  color: #444;
+    font-size: 1.2rem;
+    color: #444;
 }
 
 .mapa iframe {
-  width: 100%;
-  max-width: 600px;
-  height: 450px;
-  border: 0;
-  border-radius: 8px; /* Para que coincida con el diseño */
-  margin-top: 15px; /* Pequeño margen */
+    width: 100%;
+    max-width: 600px;
+    height: 450px;
+    border: 0;
+    border-radius: 8px; /* Para que coincida con el diseño */
+    margin-top: 15px; /* Pequeño margen */
 }
 
 /* ====== FOOTER ====== */
 footer {
-  text-align: center;
-  background-color: #222;
-  color: #eee;
-  padding: 14px;
-  font-size: 0.9rem;
+    text-align: center;
+    background-color: #222;
+    color: #eee;
+    padding: 14px;
+    font-size: 0.9rem;
 }
 
-/* ====== LOGO RESPONSIVE ====== */
+/* ====== LOGO RESPONSIVE (EXISTENTE) ====== */
 @media (max-width: 600px) {
-  header .logo {
-    width: 180px;
-  }
+    header .logo {
+        width: 180px;
+    }
 }
 
 /* ================================================= */
@@ -225,4 +229,79 @@ footer {
     background-color: #ffe6e6; /* Tono más claro del error */
     color: #d11a2a;
     border-color: #d11a2a;
+}
+
+/* ================================================= */
+/* 📱 CORRECCIONES PARA MÓVILES (Media Queries) 📱 */
+/* ================================================= */
+/* Aplicar estilos para pantallas de 768px o menos (móviles y tabletas pequeñas) */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Ajuste General y Encabezado */
+    body {
+        /* Asegura que no haya desbordamiento horizontal */
+        overflow-x: hidden; 
+    }
+
+    header {
+        padding: 30px 10px 15px;
+    }
+    
+    header h1 {
+        font-size: 2.2rem; /* Reduce el tamaño del título */
+    }
+
+    .subtitulo {
+        font-size: 1rem;
+    }
+    
+    header .logo {
+        width: 150px; /* Hace el logo más pequeño para móviles */
+        margin-bottom: 5px;
+    }
+
+    /* 2. Ajuste de Contenedores y Formulario */
+    main {
+        padding: 20px 10px; /* Reduce el padding global */
+    }
+
+    .contenedor-formulario {
+        width: 100%;
+        padding: 20px;
+        /* El max-width de 600px se mantiene, pero en el móvil el ancho será 100% */
+    }
+    
+    .contenedor-formulario h2 {
+        font-size: 1.6rem;
+    }
+
+    /* 3. Botones y Campos */
+    input, select, button {
+        font-size: 0.95rem;
+    }
+    
+    /* 4. Ajuste de Secciones (Productos, Servicios, Horarios, Ubicación) */
+    #productos, #servicios, #horarios, #ubicacion {
+        width: 95%; /* Ocupa más ancho en móvil */
+        margin: 20px auto;
+        padding: 25px 15px; /* Reduce el padding interno */
+    }
+
+    #productos h2, #servicios h2, #horarios h2, #ubicacion h2 {
+        font-size: 1.8rem;
+    }
+
+    #productos ul li, #servicios ul li, #horarios p, #ubicacion p {
+        font-size: 1.1rem; /* Reduce el tamaño del texto de las listas y párrafos */
+    }
+
+    /* 5. Mapa */
+    .mapa iframe {
+        height: 300px; /* Hace el mapa más corto para ahorrar espacio vertical */
+    }
+    
+    /* 6. Footer */
+    footer {
+        padding: 10px;
+    }
 }
