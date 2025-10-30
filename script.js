@@ -1,6 +1,6 @@
 // ** CONFIGURACIÓN DE EMAILJS (FINAL) **
 const PUBLIC_KEY = 'ned9EKMTU9yZDJHke'; // Clave pública
-const SERVICE_ID = 'service_qmmnf6v'; // ✅ ¡TU SERVICE ID REAL!
+const SERVICE_ID = 'service_qmmnf6v'; // 🚨 ¡VERIFICA QUE ESTE SEA TU SERVICE ID REAL!
 const TEMPLATE_ID = 'template_s1ec70a'; // Tu ID de Plantilla
 
 const MSG_RESERVADA = "❌ Lo sentimos, esa hora ya está reservada. Elige otra.";
@@ -8,25 +8,26 @@ const MSG_OK = "✅ ¡Cita reservada exitosamente! Revisa tu correo electrónico
 const MSG_FALTAN = "⚠️ Por favor, completa todos los campos.";
 
 // 1. INICIALIZACIÓN DE EMAILJS (¡CORRECTO!)
-emailjs.init(PUBLIC_KEY);
+emailjs.init(PUBLIC_KEY); 
+
+// ====== CONFIGURACIÓN DE BLOQUEOS ======
+const horasBloqueadasRecurrentes = ["09:00", "13:30", "16:00"];
+const bloquesEspecificos = ["2025-09-25T10:00", "2025-09-25T15:00"];
 
 // ====== REFERENCIAS A ELEMENTOS HTML ======
 const $form = document.getElementById('formulario-cita');
 const $nombre = document.getElementById('nombre');
 const $email = document.getElementById('email');
+const $servicio = document.getElementById('servicio'); // ⬅️ NUEVA REFERENCIA
 const $fecha = document.getElementById('fecha');
 const $hora = document.getElementById('hora');
 const $msg = document.getElementById('mensaje-confirmacion');
 const $button = $form.querySelector('button[type="submit"]');
 
-// Configuración de fecha mínima (para evitar reservas pasadas)
 const hoyISO = new Date().toISOString().slice(0,10);
 $fecha.min = hoyISO;
 
-// ====== CONFIGURACIÓN Y FUNCIONES DE BLOQUEOS ======
-const horasBloqueadasRecurrentes = ["09:00", "13:30", "16:00"];
-const bloquesEspecificos = ["2025-09-25T10:00", "2025-09-25T15:00"];
-
+// ====== FUNCIONES DE APOYO ======
 function pad(n){ return String(n).padStart(2, "0"); }
 function toLocalISO(date){
   const y = date.getFullYear();
@@ -68,40 +69,41 @@ function mostrarConfirmacion(texto, ok=false){
   }, 7000);
 }
 
-// ====== FUNCIÓN PRINCIPAL DE ENVÍO ======
+// ====== FUNCIÓN PRINCIPAL ======
 $form.addEventListener('submit', function(e){
-    e.preventDefault();
-    const nombre = $nombre.value.trim();
-    const email = $email.value.trim();
-    const fecha = $fecha.value;
-    const hora = $hora.value;
+  e.preventDefault();
+  const nombre = $nombre.value.trim();
+  const email = $email.value.trim();
+  const servicio = $servicio.value; // ⬅️ EXTRAEMOS EL VALOR
+  const fecha = $fecha.value;
+  const hora = $hora.value;
 
-    // Validación de campos y horarios
-    if(!nombre || !email || !fecha || !hora){
-        mostrarConfirmacion(MSG_FALTAN, false);
-        return;
-    }
-    if(estaReservada(fecha, hora)){
-        mostrarConfirmacion(MSG_RESERVADA, false);
-        return;
-    }
+  // Validación de campos y horarios
+  // ⬇️ AÑADIMOS 'servicio' a la validación de campos vacíos ⬇️
+  if(!nombre || !email || !servicio || !fecha || !hora){ 
+    mostrarConfirmacion(MSG_FALTAN, false);
+    return;
+  }
+  if(estaReservada(fecha, hora)){
+    mostrarConfirmacion(MSG_RESERVADA, false);
+    return;
+  }
 
-    // Comienza el envío de EmailJS
-    $button.textContent = 'Enviando...';
-    
-    // 2. ENVÍO DE CORREO usando sendForm
-    // El método 'sendForm' toma los datos automáticamente del formulario (this)
-    emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this) 
-    .then(() => {
-        $button.textContent = 'Reservar'; 
-        mostrarConfirmacion(MSG_OK, true);
-        $form.reset(); // Limpia el formulario
-    })
-    .catch(err => {
-        console.error('Error al enviar correo (EmailJS):', err);
-        $button.textContent = 'Reservar'; 
-        // Notifica al usuario, aunque haya fallado el envío de correo de confirmación
-        mostrarConfirmacion('⚠️ Cita guardada. **ADVERTENCIA:** Falló el envío de confirmación. Revisa la consola (F12).', false);
-        $form.reset(); 
-    });
+  // Comienza el envío de EmailJS
+  $button.textContent = 'Enviando...';
+  
+  // 2. ENVÍO DE CORREO usando sendForm
+  // El método 'sendForm' toma el nuevo campo name="servicio" automáticamente.
+  emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, this) 
+  .then(() => {
+      $button.textContent = 'Reservar'; 
+      mostrarConfirmacion(MSG_OK, true);
+      $form.reset();
+  })
+  .catch(err => {
+      console.error('Error al enviar correo (EmailJS):', err);
+      $button.textContent = 'Reservar'; 
+      mostrarConfirmacion('⚠️ Cita guardada. **ADVERTENCIA:** Falló el envío de confirmación. Revisa la consola (F12).', false);
+      $form.reset(); 
+  });
 });
